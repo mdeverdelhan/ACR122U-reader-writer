@@ -1,4 +1,4 @@
-package eu.verdelhan.acr122;
+package eu.verdelhan.acr122u;
 
 import java.io.IOException;
 

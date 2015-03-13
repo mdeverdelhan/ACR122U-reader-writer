@@ -3,10 +3,10 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>eu.verdelhan</groupId>
-	<artifactId>acr122rw</artifactId>
+	<artifactId>acr122urw</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
-	<name>acr122rw</name>
+	<name>acr122urw</name>
 
 	<dependencies>
 		<dependency>
