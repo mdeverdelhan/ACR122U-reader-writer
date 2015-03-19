@@ -5,6 +5,8 @@ import static eu.verdelhan.acr122u.HexUtils.bytesToHexString;
 import static eu.verdelhan.acr122u.HexUtils.hexStringToBytes;
 import static eu.verdelhan.acr122u.HexUtils.isHexString;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import org.nfctools.mf.MfException;
 import org.nfctools.mf.block.BlockResolver;
 import org.nfctools.mf.block.MfBlock;
@@ -26,15 +28,15 @@ public final class MifareUtils {
     public static final int MIFARE_1K_PER_SECTOR_BLOCK_COUNT = 4;
     
     /** Common Mifare Classic 1K keys */
-    public static final byte[][] COMMON_MIFARE_CLASSIC_1K_KEYS = new byte[][] {
-        hexStringToBytes("001122334455"),
-        hexStringToBytes("A0A1A2A3A4A5"),
-        hexStringToBytes("B0B1B2B3B4B5"),
-        hexStringToBytes("AAAAAAAAAAAA"),
-        hexStringToBytes("BBBBBBBBBBBB"),
-        hexStringToBytes("AABBCCDDEEFF"),
-        hexStringToBytes("FFFFFFFFFFFF")
-    };
+    public static final List<String> COMMON_MIFARE_CLASSIC_1K_KEYS = Arrays.asList(
+        "001122334455",
+        "A0A1A2A3A4A5",
+        "B0B1B2B3B4B5",
+        "AAAAAAAAAAAA",
+        "BBBBBBBBBBBB",
+        "AABBCCDDEEFF",
+        "FFFFFFFFFFFF"
+    );
     
     private MifareUtils() {
     }

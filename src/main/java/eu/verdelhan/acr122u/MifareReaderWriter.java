@@ -3,6 +3,8 @@ package eu.verdelhan.acr122u;
 import static eu.verdelhan.acr122u.HexUtils.bytesToHexString;
 import static eu.verdelhan.acr122u.HexUtils.hexStringToBytes;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.nfctools.mf.MfAccess;
 import org.nfctools.mf.MfCardListener;
@@ -70,5 +72,67 @@ public class MifareReaderWriter {
         System.out.println("Press ENTER to end listening");
         System.in.read();
         terminal.close();
+        
+    }
+    
+    private static void processDumpCommand(String... args) {
+        List<String> keys = new ArrayList<String>();
+        for (String k : args) {
+            if (MifareUtils.isValidMifareClassic1KKey(k)) {
+                keys.add(k);
+            }
+        }
+        keys.addAll(MifareUtils.COMMON_MIFARE_CLASSIC_1K_KEYS);
+        
+        
+    }
+    
+    private static void processWriteCommand(String... args) {
+        if (args.length != 4) {
+            // print help
+            // exit
+        }
+        
+        String sectorId = args[0];
+        String blockId = args[1];
+        String key = args[2];
+        String data = args[3];
+        
+        if (!MifareUtils.isValidMifareClassic1KSectorIndex(sectorId)
+                || !MifareUtils.isValidMifareClassic1KBlockIndex(blockId)
+                || !MifareUtils.isValidMifareClassic1KKey(key)
+                || !HexUtils.isHexString(data)) {
+            // printHelp
+        }
+        
+        
+        
+    }
+    
+    private static void processArguments(String... args) {
+        if (args == null || args.length == 0) {
+            // printHelp
+            // exit
+        }
+        
+        String option = args[0];
+        
+        switch (option) {
+            case "-d":
+            case "--dump":
+                // Dump card
+                
+                break;
+            case "-w":
+            case "--write":
+                // Write block
+                break;
+            case "-h":
+            case "--help":
+                // printHelp
+            default:
+                // Help
+                break;
+        }
     }
 }
