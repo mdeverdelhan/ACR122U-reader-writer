@@ -14,19 +14,14 @@ import org.nfctools.mf.block.MfBlock;
 import org.nfctools.mf.card.MfCard;
 import org.nfctools.mf.classic.Key;
 import org.nfctools.spi.acs.Acr122ReaderWriter;
-import org.nfctools.spi.acs.AcsTerminal;
-import org.nfctools.utils.CardTerminalUtils;
 
 /**
  * Test of Mifare Reader/Writer
  */
 public class MifareReaderWriter {
     
-    private static final AcsTerminal terminal = new AcsTerminal();
-    static {
-        terminal.setCardTerminal(CardTerminalUtils.getTerminalByName("ACS ACR122"));
-    }
-    private static final MfReaderWriter readerWriter = new Acr122ReaderWriter(terminal);
+    private static final Acr122Device acr122 = new Acr122Device();
+    private static final Acr122ReaderWriter readerWriter = acr122.getReaderWriter();
 
     private static final byte[] KEY_A_VALUE = hexStringToBytes("a0a1a2a3a4a5");
     private static final byte[] KEY_B_VALUE = hexStringToBytes("bbbbbbbbbbbb");
@@ -57,22 +52,17 @@ public class MifareReaderWriter {
         
     }
     
-    /**
-     * 
-     * --dump(-d)
-     * --key(-k) 0102030405
-     * --write(-w) 12 02 
-     * @param args
-     * @throws IOException 
-     */
     public static void main(String[] args) throws IOException {
-        terminal.open();
-        System.out.println("Listening for cards...");
+        acr122.open();
         readerWriter.setCardListener(new Mifare1KCardListener());
-        System.out.println("Press ENTER to end listening");
-        System.in.read();
-        terminal.close();
         
+        acr122.startListening();
+        
+        System.out.println("Press ENTER to exit");
+        System.in.read();
+        
+        acr122.stopListening();
+        acr122.close();
     }
     
     private static void processDumpCommand(String... args) {
