@@ -80,7 +80,7 @@ public final class MifareUtils {
      * @param reader the reader
      * @param keys the keys to be tested for reading
      */
-    public static void dumpMifareClassic1KCard(MfClassicReaderWriter reader, String... keys) {
+    public static void dumpMifareClassic1KCard(MfClassicReaderWriter reader, List<String> keys) {
         for (int sectorIndex = 0; sectorIndex < MIFARE_1K_SECTOR_COUNT; sectorIndex++) {
             // For each sector...
             for (int blockIndex = 0; blockIndex < MIFARE_1K_PER_SECTOR_BLOCK_COUNT; blockIndex++) {
@@ -188,7 +188,7 @@ public final class MifareUtils {
      * @param blockId the block to be read
      * @param keys the keys to be tested for reading
      */
-    private static void dumpMifareClassic1KBlock(MfClassicReaderWriter reader, int sectorId, int blockId, String... keys) {
+    private static void dumpMifareClassic1KBlock(MfClassicReaderWriter reader, int sectorId, int blockId, List<String> keys) {
         System.out.print("Sector " + sectorId + " block " + blockId + ": ");
         for (String key : keys) {
             // For each provided key...
