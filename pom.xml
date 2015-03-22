@@ -42,7 +42,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>eu.verdelhan.acr122u.MifareReaderWriter</mainClass>
+                            <mainClass>eu.verdelhan.acr122u.Acr122Manager</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
