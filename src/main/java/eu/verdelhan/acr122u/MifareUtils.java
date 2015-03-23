@@ -30,6 +30,7 @@ public final class MifareUtils {
     /** Common Mifare Classic 1K keys */
     public static final List<String> COMMON_MIFARE_CLASSIC_1K_KEYS = Arrays.asList(
         "001122334455",
+        "000102030405",
         "A0A1A2A3A4A5",
         "B0B1B2B3B4B5",
         "AAAAAAAAAAAA",

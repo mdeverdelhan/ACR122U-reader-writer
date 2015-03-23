@@ -12,14 +12,21 @@ import org.nfctools.utils.CardTerminalUtils;
  */
 public class Acr122Device extends AcsTerminal {
 
+    /** The ACR122 reader/writer */
     private Acr122ReaderWriter readerWriter;
     
+    /**
+     * Constructor.
+     */
     public Acr122Device() {
         CardTerminal terminal = CardTerminalUtils.getTerminalByName("ACR122");
         setCardTerminal(terminal);
         readerWriter = new Acr122ReaderWriter(this);
     }
 
+    /**
+     * @return the ACR122 reader/writer
+     */
     public Acr122ReaderWriter getReaderWriter() {
         return readerWriter;
     }
