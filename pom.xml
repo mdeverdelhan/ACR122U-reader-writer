@@ -22,7 +22,10 @@
     </dependencies>
 	
     <build>
+        <!-- Jar's final name -->
+        <finalName>${project.artifactId}</finalName>
         <plugins>
+            
             <!-- Build source and target -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -35,17 +38,32 @@
                     <showWarnings>true</showWarnings>
                 </configuration>
             </plugin>
+
+            <!-- Distributable archive building -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.6</version>
+                <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
                     <archive>
                         <manifest>
+                            <!-- Main class -->
                             <mainClass>eu.verdelhan.acr122u.MifareReaderWriter</mainClass>
                         </manifest>
                     </archive>
+                    <descriptorRefs>
+                        <!--  Includes project's dependencies -->
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <appendAssemblyId>false</appendAssemblyId>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
