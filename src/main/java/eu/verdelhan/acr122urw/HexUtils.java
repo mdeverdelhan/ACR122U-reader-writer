@@ -1,5 +1,5 @@
 
-package eu.verdelhan.acr122u;
+package eu.verdelhan.acr122urw;
 
 /**
  * Hexadecimal utility class.

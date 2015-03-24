@@ -1,9 +1,9 @@
 
-package eu.verdelhan.acr122u;
+package eu.verdelhan.acr122urw;
 
-import static eu.verdelhan.acr122u.HexUtils.bytesToHexString;
-import static eu.verdelhan.acr122u.HexUtils.hexStringToBytes;
-import static eu.verdelhan.acr122u.HexUtils.isHexString;
+import static eu.verdelhan.acr122urw.HexUtils.bytesToHexString;
+import static eu.verdelhan.acr122urw.HexUtils.hexStringToBytes;
+import static eu.verdelhan.acr122urw.HexUtils.isHexString;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
