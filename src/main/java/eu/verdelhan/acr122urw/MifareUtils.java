@@ -29,14 +29,14 @@ import static eu.verdelhan.acr122urw.HexUtils.isHexString;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import org.nfctools.mf.MfAccess;
 import org.nfctools.mf.MfException;
+import org.nfctools.mf.MfReaderWriter;
 import org.nfctools.mf.block.BlockResolver;
 import org.nfctools.mf.block.MfBlock;
+import org.nfctools.mf.card.MfCard;
 import org.nfctools.mf.classic.Key;
-import org.nfctools.mf.classic.KeyValue;
 import org.nfctools.mf.classic.MemoryLayout;
-import org.nfctools.mf.classic.MfClassicAccess;
-import org.nfctools.mf.classic.MfClassicReaderWriter;
 
 /**
  * Mifare utility class.
@@ -101,14 +101,15 @@ public final class MifareUtils {
     /**
      * Dumps a Mifare Classic 1K card.
      * @param reader the reader
+     * @param card the card
      * @param keys the keys to be tested for reading
      */
-    public static void dumpMifareClassic1KCard(MfClassicReaderWriter reader, List<String> keys) {
+    public static void dumpMifareClassic1KCard(MfReaderWriter reader, MfCard card, List<String> keys) {
         for (int sectorIndex = 0; sectorIndex < MIFARE_1K_SECTOR_COUNT; sectorIndex++) {
             // For each sector...
             for (int blockIndex = 0; blockIndex < MIFARE_1K_PER_SECTOR_BLOCK_COUNT; blockIndex++) {
                 // For each block...
-                dumpMifareClassic1KBlock(reader, sectorIndex, blockIndex, keys);
+                dumpMifareClassic1KBlock(reader, card, sectorIndex, blockIndex, keys);
             }
         }
     }
@@ -116,12 +117,13 @@ public final class MifareUtils {
     /**
      * Write data to a Mifare Classic 1K card.
      * @param reader the reader
+     * @param card the card
      * @param sectorId the sector to be written
      * @param blockId the block to be written
      * @param key the key to be used for writing
      * @param dataString the data hex string to be written
      */
-    public static void writeToMifareClassic1KCard(MfClassicReaderWriter reader, int sectorId, int blockId, String key, String dataString) {
+    public static void writeToMifareClassic1KCard(MfReaderWriter reader, MfCard card, int sectorId, int blockId, String key, String dataString) {
         if (!isValidMifareClassic1KKey(key)) {
             System.out.println("The key " + key + "is not valid.");
             return;
@@ -133,11 +135,11 @@ public final class MifareUtils {
         
         byte[] keyBytes = hexStringToBytes(key);
         // Reading with key A
-        MfClassicAccess access = new MfClassicAccess(new KeyValue(Key.A, keyBytes), sectorId, blockId);
+        MfAccess access = new MfAccess(card, sectorId, blockId, Key.A, keyBytes);
         String blockData = readMifareClassic1KBlock(reader, access);
         if (blockData == null) {
             // Reading with key B
-            access = new MfClassicAccess(new KeyValue(Key.B, keyBytes), sectorId, blockId);
+            access = new MfAccess(card, sectorId, blockId, Key.B, keyBytes);
             blockData = readMifareClassic1KBlock(reader, access);
         }
         System.out.print("Old block data: ");
@@ -146,7 +148,7 @@ public final class MifareUtils {
             System.out.println("<Failed to read block>");
         } else {
             // Block read
-            System.out.println(blockData + " (Key " + access.getKeyValue().getKey() + ": " + key + ")");
+            System.out.println(blockData + " (Key " + access.getKey() + ": " + key + ")");
 
             // Writing with same key
             boolean written = false;
@@ -165,7 +167,7 @@ public final class MifareUtils {
                     System.out.println("<Failed to read block>");
                 } else {
                     // Block read
-                    System.out.println(blockData + " (Key " + access.getKeyValue().getKey() + ": " + key + ")");
+                    System.out.println(blockData + " (Key " + access.getKey() + ": " + key + ")");
                 }
             }
         }
@@ -177,7 +179,7 @@ public final class MifareUtils {
      * @param access the access
      * @return a string representation of the block data, null if the block can't be read
      */
-    private static String readMifareClassic1KBlock(MfClassicReaderWriter reader, MfClassicAccess access) {
+    private static String readMifareClassic1KBlock(MfReaderWriter reader, MfAccess access) {
         String data = null;
         try {
             MfBlock block = reader.readBlock(access)[0];
@@ -194,7 +196,7 @@ public final class MifareUtils {
      * @param block the block to be written
      * @return true if the block has been written, false otherwise
      */
-    private static boolean writeMifareClassic1KBlock(MfClassicReaderWriter reader, MfClassicAccess access, MfBlock block) {
+    private static boolean writeMifareClassic1KBlock(MfReaderWriter reader, MfAccess access, MfBlock block) {
         boolean written = false;
         try {
             reader.writeBlock(access, block);
@@ -207,27 +209,28 @@ public final class MifareUtils {
     /**
      * Dumps Mifare Classic 1K block data.
      * @param reader the reader
+     * @param card the card
      * @param sectorId the sector to be read
      * @param blockId the block to be read
      * @param keys the keys to be tested for reading
      */
-    private static void dumpMifareClassic1KBlock(MfClassicReaderWriter reader, int sectorId, int blockId, List<String> keys) {
+    private static void dumpMifareClassic1KBlock(MfReaderWriter reader, MfCard card, int sectorId, int blockId, List<String> keys) {
         System.out.print("Sector " + sectorId + " block " + blockId + ": ");
         for (String key : keys) {
             // For each provided key...
             if (isValidMifareClassic1KKey(key)) {
                 byte[] keyBytes = hexStringToBytes(key);
                 // Reading with key A
-                MfClassicAccess access = new MfClassicAccess(new KeyValue(Key.A, keyBytes), sectorId, blockId);
+                MfAccess access = new MfAccess(card, sectorId, blockId, Key.A, keyBytes);
                 String blockData = readMifareClassic1KBlock(reader, access);
                 if (blockData == null) {
                     // Reading with key B
-                    access = new MfClassicAccess(new KeyValue(Key.B, keyBytes), sectorId, blockId);
+                    access = new MfAccess(card, sectorId, blockId, Key.B, keyBytes);
                     blockData = readMifareClassic1KBlock(reader, access);
                 }
                 if (blockData != null) {
                     // Block read
-                    System.out.println(blockData + " (Key " + access.getKeyValue().getKey() + ": " + key + ")");
+                    System.out.println(blockData + " (Key " + access.getKey() + ": " + key + ")");
                     return;
                 }
             }

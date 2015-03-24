@@ -25,6 +25,7 @@ package eu.verdelhan.acr122urw;
 
 import java.io.IOException;
 import javax.smartcardio.CardTerminal;
+import org.nfctools.mf.MfCardListener;
 import org.nfctools.spi.acs.Acr122ReaderWriter;
 import org.nfctools.spi.acs.AcsTerminal;
 import org.nfctools.utils.CardTerminalUtils;
@@ -46,31 +47,21 @@ public class Acr122Device extends AcsTerminal {
         readerWriter = new Acr122ReaderWriter(this);
     }
 
-    /**
-     * @return the ACR122 reader/writer
-     */
-    public Acr122ReaderWriter getReaderWriter() {
-        return readerWriter;
-    }
-
     @Override
     public void open() throws IOException {
         System.out.println("Opening device");
         super.open();
     }
 
-    @Override
-    public void startListening() {
+    /**
+     * Start listening for cards using the provided listener.
+     * @param listener a listener
+     */
+    public void listen(MfCardListener listener) throws IOException {
         System.out.println("Listening for cards...");
-        super.startListening();
-    }   
-    
-    @Override
-    public void stopListening() {
-        System.out.println("End listening");
-        super.stopListening();
+        readerWriter.setCardListener(listener);
     }
-
+    
     @Override
     public void close() throws IOException {
         System.out.println("Closing device");

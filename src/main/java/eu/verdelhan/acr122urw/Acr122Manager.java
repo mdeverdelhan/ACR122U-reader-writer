@@ -32,7 +32,9 @@ import org.nfctools.mf.MfReaderWriter;
 import org.nfctools.mf.card.MfCard;
 
 /**
- * Test of Mifare Reader/Writer
+ * Entry point of the program.
+ * <p>
+ * Manager for an ACR122 reader/writer.
  */
 public class Acr122Manager {
     
@@ -76,14 +78,11 @@ public class Acr122Manager {
             return;
         }
         acr122.open();
-        acr122.getReaderWriter().setCardListener(listener);
         
-        acr122.startListening();
-        
+        acr122.listen(listener);
         System.out.println("Press ENTER to exit");
         System.in.read();
         
-        acr122.stopListening();
         acr122.close();
     }
     
@@ -108,7 +107,7 @@ public class Acr122Manager {
             @Override
             public void cardDetected(MfCard mfCard, MfReaderWriter mfReaderWriter) throws IOException {
                 System.out.println("Card detected: " + mfCard);
-                MifareUtils.dumpMifareClassic1KCard(null, keys);
+                MifareUtils.dumpMifareClassic1KCard(mfReaderWriter, mfCard, keys);
             }
         };
         
@@ -145,7 +144,7 @@ public class Acr122Manager {
             @Override
             public void cardDetected(MfCard mfCard, MfReaderWriter mfReaderWriter) throws IOException {
                 System.out.println("Card detected: " + mfCard);
-                MifareUtils.writeToMifareClassic1KCard(null, sectorId, blockId, key, data);
+                MifareUtils.writeToMifareClassic1KCard(mfReaderWriter, mfCard, sectorId, blockId, key, data);
             }
         };
 
