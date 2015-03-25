@@ -66,6 +66,16 @@ public class Acr122Manager {
     }
     
     /**
+     * Prints information about a card.
+     * @param card a card
+     */
+    private static void printCardInfo(MfCard card) {
+        System.out.println("Card detected: "
+                + card.getTagType().toString() + " "
+                + card.toString());
+    }
+    
+    /**
      * Listens for cards using the provided listener.
      * @param listener a listener
      */
@@ -106,7 +116,7 @@ public class Acr122Manager {
         MfCardListener listener = new MfCardListener() {
             @Override
             public void cardDetected(MfCard mfCard, MfReaderWriter mfReaderWriter) throws IOException {
-                System.out.println("Card detected: " + mfCard);
+                printCardInfo(mfCard);
                 MifareUtils.dumpMifareClassic1KCard(mfReaderWriter, mfCard, keys);
             }
         };
@@ -143,7 +153,7 @@ public class Acr122Manager {
         MfCardListener listener = new MfCardListener() {
             @Override
             public void cardDetected(MfCard mfCard, MfReaderWriter mfReaderWriter) throws IOException {
-                System.out.println("Card detected: " + mfCard);
+                printCardInfo(mfCard);
                 MifareUtils.writeToMifareClassic1KCard(mfReaderWriter, mfCard, sectorId, blockId, key, data);
             }
         };
