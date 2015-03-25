@@ -29,6 +29,7 @@ import static eu.verdelhan.acr122urw.HexUtils.isHexString;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import javax.smartcardio.CardException;
 import org.nfctools.mf.MfAccess;
 import org.nfctools.mf.MfException;
 import org.nfctools.mf.MfReaderWriter;
@@ -104,7 +105,8 @@ public final class MifareUtils {
      * @param card the card
      * @param keys the keys to be tested for reading
      */
-    public static void dumpMifareClassic1KCard(MfReaderWriter reader, MfCard card, List<String> keys) {
+    public static void dumpMifareClassic1KCard(MfReaderWriter reader, MfCard card, List<String> keys)
+            throws CardException {
         for (int sectorIndex = 0; sectorIndex < MIFARE_1K_SECTOR_COUNT; sectorIndex++) {
             // For each sector...
             for (int blockIndex = 0; blockIndex < MIFARE_1K_PER_SECTOR_BLOCK_COUNT; blockIndex++) {
@@ -123,7 +125,8 @@ public final class MifareUtils {
      * @param key the key to be used for writing
      * @param dataString the data hex string to be written
      */
-    public static void writeToMifareClassic1KCard(MfReaderWriter reader, MfCard card, int sectorId, int blockId, String key, String dataString) {
+    public static void writeToMifareClassic1KCard(MfReaderWriter reader, MfCard card, int sectorId, int blockId, String key, String dataString)
+            throws CardException {
         if (!isValidMifareClassic1KKey(key)) {
             System.out.println("The key " + key + "is not valid.");
             return;
@@ -179,12 +182,16 @@ public final class MifareUtils {
      * @param access the access
      * @return a string representation of the block data, null if the block can't be read
      */
-    private static String readMifareClassic1KBlock(MfReaderWriter reader, MfAccess access) {
+    private static String readMifareClassic1KBlock(MfReaderWriter reader, MfAccess access)
+            throws CardException {
         String data = null;
         try {
             MfBlock block = reader.readBlock(access)[0];
             data = bytesToHexString(block.getData());
         } catch (IOException ioe) {
+            if (ioe.getCause() instanceof CardException) {
+                throw (CardException) ioe.getCause();
+            }
         }
         return data;
     }
@@ -196,12 +203,15 @@ public final class MifareUtils {
      * @param block the block to be written
      * @return true if the block has been written, false otherwise
      */
-    private static boolean writeMifareClassic1KBlock(MfReaderWriter reader, MfAccess access, MfBlock block) {
+    private static boolean writeMifareClassic1KBlock(MfReaderWriter reader, MfAccess access, MfBlock block) throws CardException {
         boolean written = false;
         try {
             reader.writeBlock(access, block);
             written = true;
         } catch (IOException ioe) {
+            if (ioe.getCause() instanceof CardException) {
+                throw (CardException) ioe.getCause();
+            }
         }
         return written;
     }
@@ -214,7 +224,7 @@ public final class MifareUtils {
      * @param blockId the block to be read
      * @param keys the keys to be tested for reading
      */
-    private static void dumpMifareClassic1KBlock(MfReaderWriter reader, MfCard card, int sectorId, int blockId, List<String> keys) {
+    private static void dumpMifareClassic1KBlock(MfReaderWriter reader, MfCard card, int sectorId, int blockId, List<String> keys) throws CardException {
         System.out.printf("Sector %02%d block %02%d: ", sectorId, blockId);
         for (String key : keys) {
             // For each provided key...

@@ -26,6 +26,7 @@ package eu.verdelhan.acr122urw;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.smartcardio.CardException;
 
 import org.nfctools.mf.MfCardListener;
 import org.nfctools.mf.MfReaderWriter;
@@ -117,7 +118,11 @@ public class Acr122Manager {
             @Override
             public void cardDetected(MfCard mfCard, MfReaderWriter mfReaderWriter) throws IOException {
                 printCardInfo(mfCard);
-                MifareUtils.dumpMifareClassic1KCard(mfReaderWriter, mfCard, keys);
+                try {
+                    MifareUtils.dumpMifareClassic1KCard(mfReaderWriter, mfCard, keys);
+                } catch (CardException ce) {
+                    System.out.println("Card removed or not present.");
+                }
             }
         };
         
@@ -154,7 +159,11 @@ public class Acr122Manager {
             @Override
             public void cardDetected(MfCard mfCard, MfReaderWriter mfReaderWriter) throws IOException {
                 printCardInfo(mfCard);
-                MifareUtils.writeToMifareClassic1KCard(mfReaderWriter, mfCard, sectorId, blockId, key, data);
+                try {
+                    MifareUtils.writeToMifareClassic1KCard(mfReaderWriter, mfCard, sectorId, blockId, key, data);
+                } catch (CardException ce) {
+                    System.out.println("Card removed or not present.");
+                }
             }
         };
 
