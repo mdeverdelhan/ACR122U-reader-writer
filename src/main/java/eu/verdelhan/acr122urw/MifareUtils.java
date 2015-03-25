@@ -215,7 +215,7 @@ public final class MifareUtils {
      * @param keys the keys to be tested for reading
      */
     private static void dumpMifareClassic1KBlock(MfReaderWriter reader, MfCard card, int sectorId, int blockId, List<String> keys) {
-        System.out.print("Sector " + sectorId + " block " + blockId + ": ");
+        System.out.printf("Sector %02%d block %02%d: ", sectorId, blockId);
         for (String key : keys) {
             // For each provided key...
             if (isValidMifareClassic1KKey(key)) {
