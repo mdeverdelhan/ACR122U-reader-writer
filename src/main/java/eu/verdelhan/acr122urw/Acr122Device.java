@@ -65,6 +65,7 @@ public class Acr122Device extends AcsTerminal {
     @Override
     public void close() throws IOException {
         System.out.println("Closing device");
+        readerWriter.removeCardListener();
         super.close();
     }
 }
