@@ -11,6 +11,12 @@ Here is a simple tool to read/write Mifare RFID tags with an ACR122U device.
   * JRE 7.0 or later
   * MIT Licensed
 
+### Build
+
+```bash
+$ mvn clean install
+```
+
 ### Usage
 
 ```bash
