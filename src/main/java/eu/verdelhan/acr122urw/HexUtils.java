@@ -23,14 +23,19 @@
  */
 package eu.verdelhan.acr122urw;
 
+import java.util.regex.Pattern;
+
 /**
  * Hexadecimal utility class.
  */
 public final class HexUtils {
-	
+
+    /** Regex pattern for hexadecimal strings */
+    private static final Pattern HEX_STRING_PATTERN = Pattern.compile("^([0-9A-Fa-f]{2})+$");
+    
     /** Array of all hexadecimal chars */
     private static final char[] HEX_CHARS = "0123456789ABCDEF".toCharArray();
-
+    
     private HexUtils() {
     }
 
@@ -39,12 +44,7 @@ public final class HexUtils {
      * @return true if the provided string is hexadecimal, false otherwise
      */
     public static boolean isHexString(String s) {
-        try {
-            Long.parseLong(s, HEX_CHARS.length);
-        } catch (NumberFormatException | NullPointerException e) {
-            return false;
-        }
-        return true;
+        return (s != null) && HEX_STRING_PATTERN.matcher(s).matches();
     }
     
     /**
