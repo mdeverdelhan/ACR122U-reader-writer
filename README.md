@@ -1,17 +1,41 @@
 # ACR122U-reader-writer
 
-Here is a simple program for reading/writing through an ACS ACR122U device.
+Here is a simple tool to read/write Mifare RFID tags with an ACR122U device.
+
+### Features
+
+  * Read/dump Mifare Classic tags
+  * Write to Mifare Classic tags (block-wise)
+  * ACR122U compliant
+  * Supported tags: Mifare Classic 1K (only)
+  * JRE 7.0 or later
+  * MIT Licensed
+
+### Usage
+
+```bash
+$ java -jar ./acr122urw.jar -h
+Usage: java -jar acr122urw.jar [option]
+Options:
+    -h, --help                      show this help message and exit
+    -d, --dump [KEYS...]            dump Mifare Classic 1K cards using KEYS
+    -w, --write S B KEY DATA        write DATA to sector S, block B of Mifare Classic 1K cards using KEY
+Examples:
+    java -jar acr122urw.jar --dump FF00A1A0B000 FF00A1A0B001 FF00A1A0B099
+    java -jar acr122urw.jar --write 13 2 FF00A1A0B001 FFFFFFFFFFFF00000000060504030201
+```
 
 ## About the ACR122U reader/writer
 
 ![ACR122U NFC reader/writer](res/acr122u_reader_writer.png?raw=true)
 
-http://www.acs.com.hk/en/products/3/acr122u-usb-nfc-reader/
+The [ACR122U NFC Reader](http://www.acs.com.hk/en/products/3/acr122u-usb-nfc-reader/) is made by [Advanced Card Systems Ltd](http://www.acs.com.hk/) (Hong Kong, China).
 
-### Features
+### Device features
 
+  * PC-linked contactless smart card ([NFC](http://en.wikipedia.org/wiki/Near_field_communication)) reader/writer
   * Contactless operating frequency: 13.56 MHz
-  * Supports: ISO14443 Type A & B, Mifare, FeliCa, 4 types of NFC (ISO/IEC18092) tags
+  * Supports: [ISO14443](http://en.wikipedia.org/wiki/ISO/IEC_14443) Type A & B, [MIFARE®](http://en.wikipedia.org/wiki/MIFARE), FeliCa, 4 types of NFC (ISO/IEC18092) tags
   * Interface: USB
   * Operating Distance: Up to 50 mm (depends on the tag type)
   * Operating Voltage: DC 5.0V
