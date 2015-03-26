@@ -175,7 +175,8 @@ public class Acr122Manager {
      * Prints help and exits.
      */
     private static void printHelpAndExit() {
-        String jarName = "acr122urw.jar";
+        String jarPath = Acr122Manager.class.getProtectionDomain().getCodeSource().getLocation().getFile();
+        String jarName = jarPath.substring(jarPath.lastIndexOf('/') + 1);
         
         StringBuilder sb = new StringBuilder("Usage: java -jar ");
         sb.append(jarName).append(" [option]\n");
