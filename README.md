@@ -25,6 +25,10 @@ Examples:
     java -jar acr122urw.jar --write 13 2 FF00A1A0B001 FFFFFFFFFFFF00000000060504030201
 ```
 
+### Donations
+
+Bitcoin address: 13BMqpqbzJ62LjMWcPGWrTrdocvGqifdJ3
+
 ## About the ACR122U reader/writer
 
 ![ACR122U NFC reader/writer](res/acr122u_reader_writer.png?raw=true)
@@ -43,7 +47,3 @@ The [ACR122U NFC Reader](http://www.acs.com.hk/en/products/3/acr122u-usb-nfc-rea
   * Compliance/Certifications: ISO 14443, PC/SC, CCID
   * Size: 98 mm x 65 mm x 12.8 mm
   * Weight: 70 g
-
-### Donations
-
-Bitcoin address: 13BMqpqbzJ62LjMWcPGWrTrdocvGqifdJ3
