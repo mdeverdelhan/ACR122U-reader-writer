@@ -105,7 +105,7 @@ public class Acr122Manager {
         // Building the list of keys
         final List<String> keys = new ArrayList<>();
         for (int i = 1; i < args.length; i++) {
-            String k = args[i];
+            String k = args[i].toUpperCase();
             if (MifareUtils.isValidMifareClassic1KKey(k)) {
                 keys.add(k);
             }
@@ -142,8 +142,8 @@ public class Acr122Manager {
         
         final String sector = args[1];
         final String block = args[2];
-        final String key = args[3];
-        final String data = args[4];
+        final String key = args[3].toUpperCase();
+        final String data = args[4].toUpperCase();
         if (!MifareUtils.isValidMifareClassic1KSectorIndex(sector)
                 || !MifareUtils.isValidMifareClassic1KBlockIndex(block)
                 || !MifareUtils.isValidMifareClassic1KKey(key)
@@ -175,7 +175,7 @@ public class Acr122Manager {
      * Prints help and exits.
      */
     private static void printHelpAndExit() {
-        String jarName = "acr122rw.jar";
+        String jarName = "acr122urw.jar";
         
         StringBuilder sb = new StringBuilder("Usage: java -jar ");
         sb.append(jarName).append(" [option]\n");
