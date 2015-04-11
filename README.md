@@ -1,6 +1,6 @@
 # ACR122U-reader-writer
 
-Here is a simple tool to read/write Mifare RFID tags with an ACR122U device.
+Here is a simple Java program to read/write Mifare RFID tags with an ACR122U device.
 
 ### Features
 
