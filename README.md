@@ -56,8 +56,8 @@ The [ACR122U NFC Reader](http://www.acs.com.hk/en/products/3/acr122u-usb-nfc-rea
 
 ```bash
 # For Debian Testing
-apt-get install libpcsclite1 libccid pcscd libacsccid1 pcsc-tools
-/etc/init.d/pcscd -f
+$ sudo apt-get install libpcsclite1 libccid pcscd libacsccid1 pcsc-tools
+$ sudo /etc/init.d/pcscd -f
 ```
 
 ### Donations
