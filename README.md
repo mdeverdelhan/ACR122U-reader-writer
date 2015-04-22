@@ -55,9 +55,12 @@ The [ACR122U NFC Reader](http://www.acs.com.hk/en/products/3/acr122u-usb-nfc-rea
 ### System requirements
 
 ```bash
-# For Debian Testing
-$ sudo apt-get install libpcsclite1 libccid pcscd libacsccid1 pcsc-tools
-$ sudo /etc/init.d/pcscd -f
+~# # For Debian Testing
+~# echo "install pn533 /bin/false" >> /etc/modprobe.d/blacklist-nfc.conf
+~# echo "install nfc /bin/false" >> /etc/modprobe.d/blacklist-nfc.conf
+~# modprobe -r pn533 nfc
+~# apt-get install libpcsclite1 libccid pcscd libacsccid1 pcsc-tools
+~# pcscd -f
 ```
 
 ### Donations
