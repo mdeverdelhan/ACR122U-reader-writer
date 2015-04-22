@@ -14,13 +14,13 @@ Here is a simple Java program to read/write Mifare RFID tags with an ACR122U dev
 ### Build
 
 ```bash
-$ mvn clean install
+~$ mvn clean install
 ```
 
 ### Usage
 
 ```bash
-$ java -jar ./acr122urw.jar -h
+~$ java -jar ./acr122urw.jar -h
 Usage: java -jar acr122urw.jar [option]
 Options:
     -h, --help                      show this help message and exit
