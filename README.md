@@ -52,6 +52,14 @@ The [ACR122U NFC Reader](http://www.acs.com.hk/en/products/3/acr122u-usb-nfc-rea
   
 ## Notes
 
+### System requirements
+
+```bash
+# For Debian Testing
+apt-get install libpcsclite1 libccid pcscd libacsccid1 pcsc-tools
+/etc/init.d/pcscd -f
+```
+
 ### Donations
 
 Bitcoin address: 13BMqpqbzJ62LjMWcPGWrTrdocvGqifdJ3
