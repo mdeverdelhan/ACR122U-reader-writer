@@ -14,7 +14,7 @@ Here is a simple Java program to read/write Mifare RFID tags with an ACR122U dev
 ### Build
 
 ```bash
-~$ mvn clean install
+~$ mvn clean package
 ```
 
 ### Usage
