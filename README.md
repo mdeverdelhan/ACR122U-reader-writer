@@ -45,7 +45,6 @@ The [ACR122U NFC Reader](http://www.acs.com.hk/en/products/3/acr122u-usb-nfc-rea
   * Interface: USB
   * Operating Distance: Up to 50 mm (depends on the tag type)
   * Operating Voltage: DC 5.0V
-  * Operating Frequency: 13.56 MHz
   * Compliance/Certifications: ISO 14443, PC/SC, CCID
   * Size: 98 mm x 65 mm x 12.8 mm
   * Weight: 70 g
