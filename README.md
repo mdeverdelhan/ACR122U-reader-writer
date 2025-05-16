@@ -62,6 +62,3 @@ The [ACR122U NFC Reader](http://www.acs.com.hk/en/products/3/acr122u-usb-nfc-rea
 ~# pcscd -f
 ```
 
-### Donations
-
-Bitcoin address: 13BMqpqbzJ62LjMWcPGWrTrdocvGqifdJ3
